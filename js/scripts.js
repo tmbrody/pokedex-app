@@ -1,68 +1,46 @@
 /* create an array to store and display data regarding some different 
 pokemon and a few details about them */
-let pokemonList = [];
+let pokemonList = [
+  {
+    name: 'Charizard', 
+    height: 5.58,
+    weight: 199.5, 
+    types: ['fire', 'flying']
+  },
+  {
+    name: 'Caterpie', 
+    height: 1,
+    weight: 6.4, 
+    types: ['bug']
+  },
+  {
+    name: 'Nidoking', 
+    height: 4.58,
+    weight: 136.7,
+    types: ['grass', 'poison']
+  },
+  {
+    name: 'Pikachu', 
+    height: 1.33,
+    weight: 13.2, 
+    types: ['electric']
+  },
+  {
+    name: 'Zubat', 
+    height: 2.58,
+    weight: 16.5, 
+    types: ['poison', 'flying']
+  }
+];
 
-pokemonList[0] = {
-  name: 'Charizard', 
-  height: 1.7,
-  weight: 90.5, 
-  types: ['fire', 'flying']
-};
-document.write(
-  `Name: ${pokemonList[0].name} <br>
-  Height: ${pokemonList[0].height} <br> 
-  Weight: ${pokemonList[0].weight} <br> 
-  Types: [${pokemonList[0].types}] <br><br>`
-);
-
-pokemonList[1] = {
-  name: 'Caterpie', 
-  height: 0.3,
-  weight: 2.9, 
-  types: ['bug']
-};
-document.write(
-  `Name: ${pokemonList[1].name} <br>
-  Height: ${pokemonList[1].height} <br> 
-  Weight: ${pokemonList[1].weight} <br> 
-  Types: [${pokemonList[1].types}] <br><br>`
-);
-
-pokemonList[2] = {
-  name: 'Nidoking', 
-  height: 1.4,
-  weight: 62, 
-  types: ['grass', 'poison']
-};
-document.write(
-  `Name: ${pokemonList[2].name} <br>
-  Height: ${pokemonList[2].height} <br> 
-  Weight: ${pokemonList[2].weight} <br> 
-  Types: [${pokemonList[2].types}] <br><br>`
-);
-
-pokemonList[3] = {
-  name: 'Pikachu', 
-  height: 0.4,
-  weight: 6, 
-  types: ['electric']
-};
-document.write(
-  `Name: ${pokemonList[3].name} <br>
-  Height: ${pokemonList[3].height} <br> 
-  Weight: ${pokemonList[3].weight} <br> 
-  Types: [${pokemonList[3].types}] <br><br>`
-);
-
-pokemonList[4] = {
-  name: 'Zubat', 
-  height: 0.8,
-  weight: 7.5, 
-  types: ['poison', 'flying']
-};
-document.write(
-  `Name: ${pokemonList[4].name} <br>
-  Height: ${pokemonList[4].height} <br> 
-  Weight: ${pokemonList[4].weight} <br> 
-  Types: [${pokemonList[4].types}] <br><br>`
-);
+//display the list of pokemon names and their heights
+for (let i = 0; i < pokemonList.length; i++) {
+  document.write(
+    `<strong>${pokemonList[i].name}</strong> 
+    (height: ${pokemonList[i].height} ft)`
+  );
+  /* insert a new line after the pokemon's details or additional text
+  if it is big enough */
+  pokemonList[i].height > 5 ? document.write(' - <em>That\'s big!</em>') 
+                            : document.write('<br>');
+}
