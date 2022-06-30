@@ -39,12 +39,20 @@ let pokemonRepository = (function () {
   }
 
   function add(item) {
-    pokemonList.push(item);
+    if (typeof item === 'object' && Object.keys(item) === 
+          ['name', 'height', 'weight', 'types']) { 
+      pokemonList.push(item);
+    }
+  }
+
+  function search(pokemonName) {
+    return pokemonList.filter(pokemon => pokemon.name === pokemonName);
   }
 
   return {
     getAll: getAll,
-    add: add
+    add: add,
+    serach: search
   };
 
 })();
