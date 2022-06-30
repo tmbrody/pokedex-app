@@ -33,14 +33,26 @@ let pokemonList = [
   }
 ];
 
-//display the list of pokemon names and their heights
-for (let i = 0; i < pokemonList.length; i++) {
+// display the list of pokemon names and their heights
+pokemonList.forEach(pokemon => {
   document.write(
-    `<strong>${pokemonList[i].name}</strong> 
-    (height: ${pokemonList[i].height} ft)`
+    `<div class="test"><strong>${pokemon.name}</strong>
+    <span class="yellowgreen">Weight: ${pokemon.weight} lb</span>`
+  );
+  // modify the 'types' text based on the number of types per pokemon
+  pokemon.types.length > 1 
+  ? document.write(
+    `<span class="red">Types: ${pokemon.types}</span>`
+  )
+  : document.write(
+    `<span class="red">Type: ${pokemon.types}</span>`
+  );
+
+  document.write(
+    `<span class="blue">Height: ${pokemon.height} ft</span>`
   );
   /* insert a new line after the pokemon's details or additional text
   if it is big enough */
-  pokemonList[i].height > 5 ? document.write(' - <em>That\'s big!</em>') 
-                            : document.write('<br>');
-}
+  pokemon.height > 5 ? document.write('<em>Wow, that\'s big!</em></div>') 
+                      : document.write('</div>');
+});
