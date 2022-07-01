@@ -33,18 +33,21 @@ let pokemonRepository = (function () {
       types: ['poison', 'flying']
     }
   ];
-
+  
   function getAll() {
     return pokemonList;
   }
-
+  /* only add a new item to the array if it is an Object with the 
+  same keys as the items currently in the array */
   function add(item) {
-    if (typeof item === 'object' && Object.keys(item) === 
-          ['name', 'height', 'weight', 'types']) { 
+    if (typeof item === 'object' && Object.keys(item).toString() === 
+                                  Object.keys(pokemonList[0]).toString()) { 
       pokemonList.push(item);
     }
   }
-
+  /* compare a given name with the name values in the current array
+  and return details about a specific pokemon only if its name 
+  matches the requested name */ 
   function search(pokemonName) {
     return pokemonList.filter(pokemon => pokemon.name === pokemonName);
   }
