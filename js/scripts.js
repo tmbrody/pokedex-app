@@ -1,5 +1,5 @@
-/* create an array to store and display data regarding some different 
-pokemon and a few details about them */
+/* create an array to store and display data regarding some 
+different pokemon and a few details about them */
 let pokemonRepository = (function () {
   let pokemonList = [
     {
@@ -33,17 +33,47 @@ let pokemonRepository = (function () {
       types: ['poison', 'flying']
     }
   ];
-  
-  function getAll() {
-    return pokemonList;
-  }
-  /* only add a new item to the array if it is an Object with the 
-  same keys as the items currently in the array */
+  /* only add a new item to the array if it is an Object with
+  exactly the same contents as the items currently in the array */
   function add(item) {
-    if (typeof item === 'object' && Object.keys(item).toString() === 
-                                  Object.keys(pokemonList[0]).toString()) { 
+    var array1 = Object.keys(item);
+    var array2 = Object.keys(pokemonList[0]);
+
+    if (typeof item === 'object' && 
+    (Array.isArray(array1) && Array.isArray(array2)) &&
+    (array1.length === array2.length) &&
+    (array1.every( (item, idx) => item === array2[idx]))) { 
       pokemonList.push(item);
     }
+  }
+
+  function addListItem(pokemon) {
+    /* use the class from the index page's ul element to add 
+    list-item buttons that can display each pokemon's name and
+    use eventlisteners for future functionality */ 
+    var pokemonDisplay = document.querySelector('.pokemon-list');
+    let listItem = document.createElement('li');
+    let listButton = document.createElement('button');
+    listButton.innerHTML = `<strong>${pokemon.name}</strong>`;
+    listButton.classList.add('selected-button');
+    listItem.appendChild(listButton);
+    pokemonDisplay.appendChild(listItem);
+    listButtonEventListener(listButton, pokemon);
+  }
+  /* add a click eventlistener to the button elements that were 
+  created in the addListItem function */
+  function listButtonEventListener(listButton, pokemon) {
+    listButton.addEventListener('click', function() {
+      showDetails(pokemon);
+    });
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
+  function getAll() {
+    return pokemonList;
   }
   /* compare a given name with the name values in the current array
   and return details about a specific pokemon only if its name 
@@ -53,33 +83,16 @@ let pokemonRepository = (function () {
   }
 
   return {
-    getAll: getAll,
     add: add,
+    addListItem: addListItem,
+    getAll: getAll,
     serach: search
   };
 
 })();
 
-// display the list of pokemon names and their heights
+/* display a list of buttons that are labelled with 
+different pokemon names */ 
 pokemonRepository.getAll().forEach(pokemon => {
-  document.write(
-    `<div class="test"><strong>${pokemon.name}</strong>
-    <span class="green">Weight: ${pokemon.weight} lb</span>`
-  );
-  // modify the 'types' text based on the number of types per pokemon
-  pokemon.types.length > 1 
-  ? document.write(
-    `<span class="red">Types: ${pokemon.types}</span>`
-  )
-  : document.write(
-    `<span class="red">Type: ${pokemon.types}</span>`
-  );
-
-  document.write(
-    `<span class="blue">Height: ${pokemon.height} ft</span>`
-  );
-  /* insert a new line after the pokemon's details or additional text
-  if it is big enough */
-  pokemon.height > 5 ? document.write('<em>Wow, that\'s big!</em></div>') 
-                      : document.write('</div>');
+  pokemonRepository.addListItem(pokemon);
 });
