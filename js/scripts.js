@@ -22,8 +22,6 @@ let pokemonRepository = (function () {
     listButtonEventListener(listButton, pokemon);
   }
 
-  /* add a click eventlistener to the button elements that were 
-  created in the addListItem function */
   function listButtonEventListener(listButton, pokemon) {
     listButton.addEventListener('click', function() {
       showDetails(pokemon);
@@ -45,9 +43,11 @@ let pokemonRepository = (function () {
   }
 
   function loadList() {
+    showLoadingMessage();
     return fetch(apiUrl).then(function (response) {
       return response.json();
     }).then(function (json) {
+      hideLoadingMessage();
       json.results.forEach(function (item) {
         let pokemon = {
           name: item.name,
@@ -61,10 +61,12 @@ let pokemonRepository = (function () {
   }
 
   function loadDetails(item) {
+    showLoadingMessage();
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
+      hideLoadingMessage();
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
       item.types = details.types;
@@ -73,13 +75,25 @@ let pokemonRepository = (function () {
     });
   }
 
+  function showLoadingMessage() {
+    document.querySelector('.loading-message').classList.
+                                        add('visible-on');
+  }
+
+  function hideLoadingMessage() {
+    document.querySelector('.loading-message').classList.
+                                      remove('visible-on');
+  }
+
   return {
     add: add,
     addListItem: addListItem,
     getAll: getAll,
     serach: search,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    showLoadingMessage: showLoadingMessage,
+    hideLoadingMessage: hideLoadingMessage
   };
 
 })();
