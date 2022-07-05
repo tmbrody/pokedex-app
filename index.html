@@ -5,20 +5,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/style.production.css">
   <title>Pokédex</title>
 </head>
 
 <body>
   <header>
     <h1>Pokédex</h1>
-    <img src="img/search-icon.png" alt="search icon">
+    <a class="search-icon"><img src="img/search-icon.png" alt="search icon"></a>
   </header>
 
   <p class="loading-message">Loading...</p>
   <ul class="pokemon-list"></ul>
+  <div id="modal-container"></div>
+
   <script src="js/promise-polyfill.js"></script>
   <script src="js/fetch-polyfill.js"></script>
+  <script src="js/pointerevents-polyfill.js"></script>
   <script src="js/scripts.js"></script>
 </body>
 
