@@ -39,11 +39,15 @@ let pokemonRepository = (function () {
 
       let closeButtonElement = document.createElement('button');
       closeButtonElement.classList.add('modal-close');
+      closeButtonElement.setAttribute('title', 'Close');
       closeButtonElement.innerText = 'X';
       closeButtonElement.addEventListener('click', hideDetails);
 
       let titleElement = document.createElement('h1');
       titleElement.innerText = pokemon.name;
+
+      let entryElement = document.createElement('p');
+      entryElement.innerText = `Entry: ${pokemon.id}`;
 
       let heightElement = document.createElement('p');
       heightElement.innerText = `Height: ${pokemon.height}`;
@@ -51,13 +55,22 @@ let pokemonRepository = (function () {
       let weightElement = document.createElement('p');
       weightElement.innerText = `Weight: ${pokemon.weight}`;
 
+      let typesElement = document.createElement('p');
+      typesElement.innerText = `Types: ${pokemon.types[0].type.name}`;
+
+      if (pokemon.types.length === 2) {
+        typesElement.innerText += `, ${pokemon.types[1].type.name}`;
+      }
+
       let imageElement = document.createElement('img');
       imageElement.src = pokemon.imageUrl;
 
       modal.appendChild(closeButtonElement);
       modal.appendChild(titleElement);
+      modal.appendChild(entryElement);
       modal.appendChild(heightElement);
       modal.appendChild(weightElement);
+      modal.appendChild(typesElement);
       modal.appendChild(imageElement);
       modalContainer.appendChild(modal);
 
@@ -103,6 +116,7 @@ let pokemonRepository = (function () {
     }).then(function (details) {
       hideLoadingMessage();
       item.imageUrl = details.sprites.front_shiny;
+      item.id = details.id;
       item.height = details.height;
       item.weight = details.weight;
       item.types = details.types;
@@ -140,7 +154,25 @@ let pokemonRepository = (function () {
   });
 
   searchIcon.addEventListener('click', function() {
-    console.log('pikachu'.charAt(0).toUpperCase() + 'pikachu'.slice(1));
+    if (searchIcon.childElementCount === 1) {
+      let bodyHeader = document.querySelector('.body-header');
+      let searchQuery = document.createElement('input');
+      searchQuery.setAttribute('placeholder', 'Pokémon name');
+      searchQuery.classList.add('search-query');
+      searchQuery.autofocus = true;
+      bodyHeader.appendChild(searchQuery);
+
+      searchQuery.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          searchQuery.value = searchQuery.value.charAt(0).toUpperCase() 
+                              + searchQuery.value.slice(1);
+          console.log(searchQuery.value);
+          if (search(searchQuery.value)[0] !== undefined) {
+            showDetails(search(searchQuery.value)[0]);
+          }
+        }
+      });
+    }
   });
 
   return {
