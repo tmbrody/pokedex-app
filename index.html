@@ -5,23 +5,30 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/style.production.css">
-  <title>Pokédex</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <title>Pokédex App</title>
 </head>
 
 <body>
-  <header class="body-header">
-    <h1>Pokédex</h1>
-    <a class="search-icon"><img src="img/search-icon.png" alt="search icon"></a>
-  </header>
+  <nav class="navbar bg-light">
+    <div class="container-fluid">
+      <div class="display-3 fw-bold">Pokédex</div>
+        <form class="d-flex row" role="search">
+          <button class="me-2 btn btn-outline-secondary col-sm" type="button">
+            <img src="img/search-icon.png" alt="search icon">
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
 
-  <p class="loading-message">Loading...</p>
-  <ul class="pokemon-list"></ul>
-  <div id="modal-container"></div>
+  <p class="display-6 fw-bold text-center text-danger">Loading...</p>
+  <div class="list-group"></div>
+  <div class="modal" id="pokemonModal" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
 
-  <script src="js/promise-polyfill.js"></script>
-  <script src="js/fetch-polyfill.js"></script>
-  <script src="js/pointerevents-polyfill.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
   <script src="js/scripts.js"></script>
 </body>
 

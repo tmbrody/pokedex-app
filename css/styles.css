@@ -1,61 +1,26 @@
-* {
-  box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
+.list-group {
+  margin-top: 3em;
 }
 
-header {
-  display: grid;
-  grid-template-columns: 10fr 1fr 1fr;
-  min-height: 10vh;
-  border-bottom: 2px solid black;
+.list-group-item {
+  border: none;
 }
 
-.loading-message {
-  position: absolute;
-  top: 11%;
-  left: 43%;
-  color: rgba(0,0,0,0);
-  font-size: 20px;
-  text-align: center;
-  font-weight: bold;
-  padding-left: 5%;
+.modal-body {
+  padding: 0;
+  padding-top: 10px;
 }
 
-.modal {
-  margin: auto;
-  margin-top: 15%;
-  box-sizing: border-box;
-  background: #fff;
-  padding: 5px;
-  width: 20%;
-  max-width: 700px;
-  text-align: center;
+.modal-header {
+  padding: 0;
 }
 
-.modal h1 {
-  padding-left: 0.75em;
+.modal-title {
+  word-break: break-all;
+  margin-top: 10px;
 }
 
-.modal-close {
-  float: right;
-  cursor: pointer;
-  font-size: x-large;
-  -webkit-appearance: none;
-  border: 0;
-  background: none;
-  color: #777;
-}
-
-.modal-close:hover {
-  background-color: #ff8181;
-  border-radius: 50%;
-}
-
-#modal-container {
-  display: none;
-}
-
-#modal-container.is-visible {
+#pokemonModal.is-visible {
   display: block;
   position: fixed;
   padding: 20px;
@@ -70,74 +35,12 @@ header {
   text-align: center;
 }
 
-.pokemon-list {
-  display: grid;
-  gap: 10px 55px;
-  text-align: center;
-  list-style-type: none;
-  margin-top: 50px;
+.row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.search-icon {
-  cursor: pointer;
-}
-
-.search-icon img {
-  background-color: #f4f4f4;
-  border-radius: 30%;
-}
-
-.search-icon img:hover {
-  background-color: #e8e8e8;
-  border-radius: 30%;
-}
-
-.search-query {
-  margin: 2em auto;
-}
-
-.selected-button {
-  border: 3px solid #800080;
-  cursor: pointer;
-  padding: 2%;
-  margin: 0;
-}
-
-.selected-button:hover {
-  background-color: #c1c1c1;
-}
-
-title {
-  display: none;
-}
-
-.visible-on {
-  color: rgba(255,0,0,255);
-}
-
-@media all and (max-width: 330px) {
-  .modal h1 {
-    font-size: small;
-  }
-
-  header {
-    display: block;
-  }
-
-  header h1 {
-    font-size: small;
-    max-height: 5px;
-  }
-}
-
-@media all and (min-width: 330px) and (max-width: 400px) {
-  .modal h1 {
-    font-size: medium;
-  }
-}
-
-@media all and (max-width: 1300px) {
-  .modal {
-    width: 100%;
-  }
+.row>* {
+  padding-left: 0;
+  padding-right: 0;
 }
