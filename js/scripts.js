@@ -59,6 +59,8 @@ let pokemonRepository = (function () {
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
       modalContainer.innerHTML = '';
+      
+      modalTitle.className = 'modal-title col-sm-3';
 
       pokemon.types.forEach(t => {
         switch(t.type.name) {
