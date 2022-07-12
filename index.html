@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <nav class="navbar bg-light">
+  <nav class="navbar bg-light sticky-top">
     <div class="container-fluid">
       <div class="display-3 fw-bold">Pokédex</div>
         <form class="d-flex row" role="search">
@@ -23,9 +23,22 @@
     </div>
   </nav>
 
-  <p class="display-6 fw-bold text-center text-danger">Loading...</p>
-  <div class="list-group"></div>
-  <div class="modal" id="pokemonModal" tabindex="-1" aria-labelledby="pokemonModalLabel" aria-hidden="true">
+  <p class="fw-bold position-absolute top-10 start-50 text-center text-danger">Loading...</p>
+  <ul class="list-group-horizontal row mt-4"></ul>
+
+  <div class="modal fade" id="pokemonModal" tabindex="-1" role="dialog" aria-labelledby="pokemonModalLabel" aria-hidden="true">
+    <div class="modal-dialog pt-5 text-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header row">
+          <h5 class="modal-title col-sm-3" id="pokemonModalLabel"></h5>
+          <button class="btn btn-close col-sm-9 me-3" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
