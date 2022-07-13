@@ -1,16 +1,18 @@
-let pokemonRepository = (function () {
-  let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+const pokemonRepository = (function () {
+  const pokemonList = [];
+  const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
-  let searchIcon = document.querySelector('.btn-outline-secondary');
+  const searchIcon = document.querySelector('.btn-outline-secondary');
 
-  let modalContainer = document.querySelector('.modal');
-  let modalDialog = document.querySelector('.modal-dialog');
-  let modalContent = document.querySelector('.modal-content');
-  let modalHeader = document.querySelector('.modal-header');
-  let modalTitle = document.querySelector('.modal-title');
-  let modalClose = document.querySelector('.btn-close');
-  let modalBody = document.querySelector('.modal-body');
+  const modalContainer = document.querySelector('.modal');
+  const modalDialog = document.querySelector('.modal-dialog');
+  const modalContent = document.querySelector('.modal-content');
+  const modalHeader = document.querySelector('.modal-header');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalClose = document.querySelector('.btn-close');
+  const modalBody = document.querySelector('.modal-body');
+
+  const listItemArray = document.getElementsByTagName('li');
 
   function add(pokemon) {
     if (typeof pokemon === 'object' && "name" in pokemon 
@@ -22,22 +24,22 @@ let pokemonRepository = (function () {
   }
 
   function addListItem(pokemon) {
-    let pokemonDisplay = document.querySelector('.list-group-horizontal');
-    let listItem = document.createElement('li');
+    const pokemonDisplay = document.querySelector('.list-group-horizontal');
+    const listItem = document.createElement('li');
     listItem.classList.add('list-group-item', 'text-center', 'col-sm-6', 
                             'col-md-4', 'border', 'border-primary', 
                             'bg-image', 'img-fluid');
-    let listTitle = document.createElement('p');
+    const listTitle = document.createElement('p');
     listTitle.classList.add('display-6');
     listTitle.innerHTML = `<strong>${pokemon.name}</strong>`;
-    let listSprite = document.createElement('div');
+    const listSprite = document.createElement('div');
 
     loadDetails(pokemon).then(function () {
       listSprite.innerHTML = `<img src=${pokemon.imageFrontUrl} 
                             alt="${pokemon.name} sprite">`;
     });
 
-    let listButton = document.createElement('button');
+    const listButton = document.createElement('button');
     listButton.innerHTML = 'Show more';
     listButton.classList.add('mb-2', 'btn', 'btn-secondary');
     listButton.setAttribute('type', 'button');
@@ -62,29 +64,11 @@ let pokemonRepository = (function () {
       
       modalTitle.className = 'modal-title col-sm-3';
 
-      pokemon.types.forEach(t => {
-        switch(t.type.name) {
-          case 'fire':
-            modalTitle.classList.add('text-danger');
-            break;
-          case 'grass':
-            modalTitle.classList.add('text-success');
-            break;
-          case 'water':
-            modalTitle.classList.add('text-primary');
-            break;
-          case 'electric':
-            modalTitle.classList.add('text-warning');
-            break;
-          case 'flying':
-            modalTitle.classList.add('text-info');
-            break;
-          case 'poison':
-            modalTitle.classList.add('text-secondary');
-            break;
-        }
-      });
+      const pokeType = {fire: 'text-danger', grass: 'text-success', 
+                        water: 'text-primary', electric: 'text-warning', 
+                        flying: 'text-info', poison: 'text-secondary'};
 
+      pokemon.types.forEach(t => modalTitle.classList.add(pokeType[t.type.name]));
       modalTitle.innerHTML = `<p><strong>${pokemon.name}</strong></p>`;
 
       modalBody.innerHTML = `
@@ -132,7 +116,7 @@ let pokemonRepository = (function () {
     }).then(function (json) {
       hideLoadingMessage();
       json.results.forEach(function (item) {
-        let pokemon = {
+        const pokemon = {
           name: item.name.charAt(0).toUpperCase() + item.name.slice(1),
           detailsUrl: item.url
         };
@@ -145,7 +129,7 @@ let pokemonRepository = (function () {
 
   function loadDetails(item) {
     showLoadingMessage();
-    let url = item.detailsUrl;
+    const url = item.detailsUrl;
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
@@ -177,14 +161,16 @@ let pokemonRepository = (function () {
   }
 
   modalClose.addEventListener('click', () => {
+    modalContainer.classList.remove('modal-open');
     modalContainer.setAttribute('style', 'display:none');
-    document.getElementsByTagName('li')[0].lastChild.click();
+
+    listItemArray[0].lastChild.click();
   });
 
   searchIcon.addEventListener('click', function() {
-    let bodyHeader = document.querySelector('.d-flex');
+    const bodyHeader = document.querySelector('.d-flex');
     if (bodyHeader.childElementCount === 1) {
-      let searchQuery = document.createElement('input');
+      const searchQuery = document.createElement('input');
       searchQuery.setAttribute('placeholder', 'Pokémon name');
       searchQuery.setAttribute('type', 'search');
       searchQuery.setAttribute('aria-label', 'Search Pokémon name');
@@ -198,7 +184,14 @@ let pokemonRepository = (function () {
           e.preventDefault();
           searchQuery.value = searchQuery.value.charAt(0).toUpperCase() 
                               + searchQuery.value.slice(1);
-          let listItemArray = document.getElementsByTagName('li');
+                              
+          for (let i = 0; i < listItemArray.length; i++) {
+            if (902 > listItemArray[i].lastChild.getBoundingClientRect()['top'] && 
+            listItemArray[i].lastChild.getBoundingClientRect()['top'] > 42) {
+              listItemArray[i].lastChild.click();
+            }
+          }
+
           for (let i = 0; i < listItemArray.length; i++) {
             if (listItemArray[i].innerText.split('\n')[0] === searchQuery.value) {
               listItemArray[i].lastChild.click();
