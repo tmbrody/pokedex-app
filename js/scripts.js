@@ -15,11 +15,11 @@ const pokemonRepository = (function () {
   const listItemArray = document.getElementsByTagName('li');
 
   function add(pokemon) {
-    if (typeof pokemon === 'object' && "name" in pokemon 
-    && "detailsUrl" in pokemon) { 
+    if (typeof pokemon === 'object' && 'name' in pokemon 
+    && 'detailsUrl' in pokemon) { 
       pokemonList.push(pokemon);
     } else {
-      console.log("Pokémon is not correct");
+      console.log('Pokémon is not correct');
     }
   }
 
@@ -62,7 +62,7 @@ const pokemonRepository = (function () {
     loadDetails(pokemon).then(function () {
       modalContainer.innerHTML = '';
       
-      modalTitle.className = 'modal-title col-sm-3';
+      modalTitle.className = 'modal-title h5 col-sm-3';
 
       const pokeType = {fire: 'text-danger', grass: 'text-success', 
                         water: 'text-primary', electric: 'text-warning', 
@@ -90,6 +90,9 @@ const pokemonRepository = (function () {
       modalBody.innerHTML += `<br>
         <img src=${pokemon.imageFrontUrl} alt="${pokemon.name} front sprite">
         <img src=${pokemon.imageBackUrl} alt="${pokemon.name} back sprite">
+        <br>
+        <img src=${pokemon.imageFrontShinyUrl} alt="${pokemon.name} front shiny sprite">
+        <img src=${pokemon.imageBackShinyUrl} alt="${pokemon.name} back shiny sprite">
       `;
 
       modalDialog.appendChild(modalContent);
@@ -134,8 +137,10 @@ const pokemonRepository = (function () {
       return response.json();
     }).then(function (details) {
       hideLoadingMessage();
-      item.imageFrontUrl = details.sprites.front_shiny;
-      item.imageBackUrl = details.sprites.back_shiny;
+      item.imageFrontUrl = details.sprites.front_default;
+      item.imageBackUrl = details.sprites.back_default;
+      item.imageFrontShinyUrl = details.sprites.front_shiny;
+      item.imageBackShinyUrl = details.sprites.back_shiny;
       item.id = details.id;
       item.height = details.height;
       item.weight = details.weight;
@@ -194,7 +199,7 @@ const pokemonRepository = (function () {
 
           for (let i = 0; i < listItemArray.length; i++) {
             if (listItemArray[i].innerText.split('\n')[0] === searchQuery.value) {
-              listItemArray[i].lastChild.click();
+              setTimeout(function() { listItemArray[i].lastChild.click() }, 5);
             }
           }
         }
